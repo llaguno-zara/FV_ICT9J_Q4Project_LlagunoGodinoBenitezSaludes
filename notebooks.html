@@ -7,21 +7,23 @@
     <title>Q4 Project | Notebooks</title>
 
     <style>
-        body{
+        body {
             background-color: rgb(249, 209, 230);
         }
 
         #sidebar {
-            height: 730px;     
+            height: 100vh; /* Keeps sidebar full height */
             width: 300px; 
             background-color: #29183b; 
             color: white;
             display: flex;
             flex-direction: column;
             padding: 20px;
+            position: sticky;
+            top: 0;
         }
 
-        #logobox{
+        #logobox {
             width: 100%;            
             display: block;       
             text-align: center;    
@@ -35,7 +37,6 @@
             display: block; 
             margin-left: auto;
             margin-right: auto;
-            
         }
 
         .navbar-nav .nav-link {
@@ -43,28 +44,44 @@
             padding: 10px;
         }
 
-        .navbar-nav{
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
         #logoutbtn {
             margin-top: auto; 
             padding-bottom: 20px;
         }
 
-       #titletext{
+        #titletext {
             background-color: #29183b;
             color: white;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            padding-left: 10px;
-            padding-right: 10px;
+            padding: 15px 10px;
             border-radius: 15px;
+            display: inline-block;
         }
 
-        .footer{
+        /* --- CARD STYLING FROM YOUR CODE --- */
+        .card {
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .top {
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Background Images */
+        .tle { background-image: url("images/tle.png"); }
+        .filipino { background-image: url("images/filipino.png"); }
+        .english { background-image: url("images/english.png"); }
+        .math { background-image: url("images/math.png"); }
+        .science { background-image: url("images/science.png"); }
+        .homeroom { background-image: url("images/homeroom.png"); }
+        .social { background-image: url("images/social.png"); }
+        .ict { background-image: url("images/ict.png"); }
+
+        .footer {
             background-color: #333333c7; 
             color: white;
             font-size: 15px;
@@ -74,10 +91,11 @@
             position: fixed;
             bottom: 0;         
             right: 0;
+            z-index: 1000;
         }
     </style>
 </head>
-<body>
+<body onload="checkLogin()">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3" id="sidebar">
@@ -88,46 +106,128 @@
                 <br><br>
 
                 <ul class="navbar-nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.html">Dashboard</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="notebooks.html">Virtual Notebooks</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="tasks.html">Tasks</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile.html">Profile</a>
-                    </li>
-
+                    <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="notebooks.html">Virtual Notebooks</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tasks.html">Tasks</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
                     <li class="nav-item" id="logoutbtn">
-                        <a class="nav-link" href="index.html">Logout</a>
+                        <a class="nav-link" href="#" onclick="logout()">Logout</a>
                     </li>   
                 </ul>
             </div>
             
             <div class="col-lg-9 p-4">
-                <div class="row">
-                    <div class="col-lg-3">
+                <div class="row mb-4">
+                    <div class="col-12">
                         <h1 id="titletext">NOTEBOOKS</h1>
-                        <h5>Select a subject.</h5>
+                        <h5 class="mt-3">This is the list of your classes.</h5>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="top tle"></div>
+                            <div class="card-body">
+                                <h6>TLE 9-Jade AY 2526</h6>
+                                <p class="small mb-1">2025-2026</p>
+                                <p class="small text-muted">HANNAH DEL BARRIO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="top filipino"></div>
+                            <div class="card-body">
+                                <h6>FILIPINO 9-Jade AY 2526</h6>
+                                <p class="small mb-1">2025-2026</p>
+                                <p class="small text-muted">JEMIMA FRANCISCO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="top english"></div>
+                            <div class="card-body">
+                                <h6>ENGLISH 9-Jade AY 2526</h6>
+                                <p class="small mb-1">2025-2026</p>
+                                <p class="small text-muted">KRISTIN AVILA</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="top math"></div>
+                            <div class="card-body">
+                                <h6>MATHEMATICS 9-Jade AY 2526</h6>
+                                <p class="small mb-1">2025-2026</p>
+                                <p class="small text-muted">JILL RAMOS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="top science"></div>
+                            <div class="card-body">
+                                <h6>SCIENCE 9-Jade AY 2526</h6>
+                                <p class="small mb-1">2025-2026</p>
+                                <p class="small text-muted">MA. TALAVERA</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="top homeroom"></div>
+                            <div class="card-body">
+                                <h6>HOMEROOM 9-Jade AY 2526</h6>
+                                <p class="small mb-1">2025-2026</p>
+                                <p class="small text-muted">MA. TALAVERA</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="top social"></div>
+                            <div class="card-body">
+                                <h6>SOCIAL STUDIES 9-Jade AY 2526</h6>
+                                <p class="small mb-1">2025-2026</p>
+                                <p class="small text-muted">LORENZO FERNANDEZ</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="top ict"></div>
+                            <div class="card-body">
+                                <h6>ICT 9-Jade AY 2526</h6>
+                                <p class="small mb-1">2025-2026</p>
+                                <p class="small text-muted">RENN SANTOS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-                    <div class="col-lg-9">
-                    
-                    <!-- put your code here --> 
-
-                    </div>
         </div>
     </div>
 
     <div class="footer">
         Benitez, Godino, Llaguno, Saludes | 9-Jade @2026
     </div>
+
+    <script>
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            window.location.href = "index.html";
+        }
+
+        function checkLogin() {
+            if (localStorage.getItem("loggedIn") !== "yes") {
+                window.location.href = "index.html";
+            }
+        }
+    </script>
 </body>
 </html>
